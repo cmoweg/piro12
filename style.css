@@ -1,0 +1,27 @@
+body{
+    font-family: 'Times New Roman', Times, serif;
+    margin:0;
+}
+
+a {text-decoration: none}
+
+header{
+    width:99%;
+    margin:0;
+    border:1px solid #cccccc;
+}
+
+#header_nav{
+    width:100%;
+    overflow:hidden;
+    background-color:#2d1152;
+}
+
+#header_nav li{
+    font-size:0.9em;
+    color:#ffffff;
+    margin-right:10px;
+    list-style:none;
+    float:left;
+}
+
