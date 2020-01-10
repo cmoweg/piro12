@@ -21,7 +21,7 @@ B = User()
 turn = 1
 aliveA = 0
 aliveB = 0
-
+color_end = '\x1b[0m'
 
 #View
 
@@ -35,26 +35,29 @@ def To_charf(num):
 
 def VIEW2():
     for i in range(4):
-        print("────────────────────────")
+        print("┣━━━━━━━━━━━━━━━━━━━━┫")
         for j in range(3):
             print_row(i, j)
-    print("────────────────────────")
-    print("===A의 보유 말===")
+    print("┗━━━━━━━━━━━━━━━━━━━━┛")
+    color = '\x1b[1;30;41m'
+
+    print("===%sA의 보유 말%s==="%('\x1b[1;30;41m',color_end))
     print("  장 %d 상 %d 자 %d" % (A.jang, A.sang, A.ja));
-    print("===B의 보유 말===")
+    print("===%sB의 보유 말%s==="%('\x1b[1;30;44m',color_end))
     print("  장 %d 상 %d 자 %d" %(B.jang, B.sang, B.ja));
 
 
 def VIEW_process(turn):
     for i in range(4):
-        print("────────────────────────")
+        print("┣━━━━━━━━━━━━━━━━━━━━┫")
         for j in range(3):
             print_row2(i, j, turn)
-    print("────────────────────────")
+    print("┗━━━━━━━━━━━━━━━━━━━━┛")
     print("===A의 보유 말===")
     print("  장 %d 상 %d 자 %d" % (A.jang, A.sang, A.ja));
     print("===B의 보유 말===")
     print("  장 %d 상 %d 자 %d" % (B.jang, B.sang, B.ja));
+    print()
 
 
 def print_row(row, small_row):
@@ -66,7 +69,7 @@ def print_row(row, small_row):
             pass
         elif small_row == 2:
             BOT(row,column)
-    print("│")
+    print("┃")
 
 
 def print_row2(row, small_row, turn):
@@ -83,31 +86,30 @@ def print_row2(row, small_row, turn):
             pass
         elif small_row == 2:
             BOT(row,column)
-    print("│")
+    print("┃")
 
 
 def TOP(row,column):
     turn = Board[row][column][0]
     peice = Board[row][column][1]
     if peice == 1:
-        print("│↖∧↗", end="")
+        print("┃↖∧↗", end="")
     elif peice == 2:
-        print("│  ∧  ", end="")
+        print("┃  ∧  ", end="")
     elif peice == 3:
-        print("│↖  ↗", end="")
+        print("┃↖  ↗", end="")
     elif peice == 4 :
         if turn == 1:
-            print("│      ", end="")
+            print("┃      ", end="")
         else:
-            print("│  ∧  ", end="")
+            print("┃  ∧  ", end="")
     elif peice == 5:
         if turn == 1:
-            print("│  ∧  ", end="")
+            print("┃  ∧  ", end="")
         else:
-            print("│↖∧↗", end="")
+            print("┃↖∧↗", end="")
     else:
-        print("│      ", end="")
-    1
+        print("┃      ", end="")
 
 '''
 ↖ㅣ↗
@@ -118,36 +120,50 @@ def TOP(row,column):
 def MID(row,column):
     turn = Board[row][column][0]
     peice = Board[row][column][1]
-    if peice == 1:
-        print("│←-\033[1;30;47m왕\x1b[0m-→", end="")#1b 16 + 11 27
-    elif peice == 2:
-        print("│←-장-→", end="")
-    elif peice == 3:
-        print("│  상  ", end="")
-    elif peice == 4:
-        print("│  자  ", end="")
-    elif peice == 5:
-        print("│←-후-→", end="")
+    if turn == 1:
+        color = '\x1b[1;30;41m'
     else:
-        print("│      ", end="")
+        color = '\x1b[1;30;44m'
+    if peice == 1:
+        print("┃←-%s왕%s-→"%(color,color_end), end="")#1b 16 + 11 27
+    elif peice == 2:
+        print("┃←-%s장%s-→"%(color,color_end), end="")
+    elif peice == 3:
+        print("┃  %s상%s  "%(color,color_end), end="")
+    elif peice == 4:
+        print("┃  %s자%s  "%(color,color_end), end="")
+    elif peice == 5:
+        print("┃←-%s후%s-→"%(color,color_end), end="")
+    else:
+        print("┃      ", end="")
 
 def MID2(row,column, Num):
     turn = Board[row][column][0]
     peice = Board[row][column][1]
+    if turn == 1:
+        color = '\x1b[1;30;41m'
+    else:
+        color = '\x1b[1;30;44m'
+    color_end = '\x1b[0m'
+
     if not 1<=Num<=9:
         Num = 0;
     if peice == 1:
-        print("│←-왕-→", end="")
+        print("┃←-%s왕%s-→"%(color,color_end), end="")
     elif peice == 2:
-        print("│←-장-→", end="")
+        print("┃←-%s장%s-→"%(color,color_end), end="")
     elif peice == 3:
-        print("│  상  ", end="")
+        print("┃  %s상%s  "%(color,color_end), end="")
     elif peice == 4:
-        print("│  자  ", end="")
+        print("┃  %s자%s  "%(color,color_end), end="")
     elif peice == 5:
-        print("│←-후-→", end="")
+        print("┃←-%s후%s-→"%(color,color_end), end="")
     else:
-        print("│  %s  " % To_char[Num], end="")
+        if Num:
+            color = '\x1b[1;30;43m'
+        else :
+            color = ""
+        print("┃  %s%s%s  " % (color,To_char[Num],color_end), end="")
 
 '''
 ↖ㅣ↗
@@ -159,29 +175,29 @@ def BOT(row,column):
     turn = Board[row][column][0]
     peice = Board[row][column][1]
     if peice == 1:
-        print("│↙∨↘", end="")
+        print("┃↙∨↘", end="")
     elif peice == 2:
-        print("│  ∨  ", end="")
+        print("┃  ∨  ", end="")
         pass
     elif peice == 3:
-        print("│↙  ↘", end="")
+        print("┃↙  ↘", end="")
         pass
     elif peice == 4 :
         if turn == 1:
-            print("│  ∨  ", end="")
+            print("┃  ∨  ", end="")
             pass
         else:
-            print("│      ", end="")
+            print("┃      ", end="")
             pass
     elif peice == 5:
         if turn == 1:
-            print("│↙∨↘", end="")
+            print("┃↙∨↘", end="")
             pass
         else:
-            print("│  ∨  ", end="")
+            print("┃  ∨  ", end="")
             pass
     else:
-        print("│      ", end="")
+        print("┃      ", end="")
         pass
 
 
@@ -649,9 +665,13 @@ while True:
         while True:
             VIEW2();
             if turn==2:
-                print("++++++++B의 턴++++++++")
+                color = '\x1b[1;30;44m'
+                color_end = '\x1b[0m'
+                print("++++++++%sB의 턴%s++++++++"%(color,color_end))
             else:
-                print("++++++++A의 턴++++++++")
+                color = '\x1b[1;30;41m'
+                color_end = '\x1b[0m'
+                print("++++++++%sA의 턴%s++++++++"%(color,color_end))
             process(*Input(turn))
             if judge():
                 break
